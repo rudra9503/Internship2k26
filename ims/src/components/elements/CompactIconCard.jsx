@@ -10,25 +10,27 @@ import {
   Tooltip,
   Box,
 } from '@mui/material';
-import statusbar from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SearchIcon from '@mui/icons-material/Search';
-import DownloadIcon from '@mui/icons-material/Download';
-import UploadIcon from '@mui/icons-material/Upload';
-
+import PersonIcon from '@mui/icons-material/Person';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import StoreIcon from '@mui/icons-material/Store';
+import GroupIcon from '@mui/icons-material/Group';
 const menuItems = [
-  { label: 'Add Status', icon: statusbar },
-  { label: 'Add Type', icon: EditIcon },
-  { label: 'Add Vendor', icon: DeleteIcon },
-  { label: 'Add Sent By', icon: SearchIcon },
+  { label: 'Add Status', icon: BarChartIcon },
+  { label: 'Add Type', icon: MenuBookIcon },
+  { label: 'Add Vendor', icon: StoreIcon },
+  { label: 'Add Sent By', icon: PersonIcon },
+  { label: 'Employee By', icon: GroupIcon}
 ];
 
+const ICON_ONLY_WIDTH = 56;
+const EXPANDED_WIDTH = 200;
+
 const CardContainer = styled(Paper)(({ theme, isHovered, itemCount }) => {
-  const itemHeight = 48; // Height of each item
-  const padding = theme.spacing(1); // padding in px (8px per unit)
-  const gap = theme.spacing(0.5); // gap between items in px (4px per unit)
-  const totalHeight = itemCount * itemHeight + (itemCount - 1) * 4 + 16; // items + gaps + padding
+  const itemHeight = 48;
+  const padding = theme.spacing(1);
+  const gap = theme.spacing(0.5);
+  const totalHeight = itemCount * itemHeight + (itemCount - 1) * 4 + 16;
 
   return {
     display: 'flex',
@@ -37,12 +39,12 @@ const CardContainer = styled(Paper)(({ theme, isHovered, itemCount }) => {
     minHeight: totalHeight,
     backgroundColor: 'rgb(100, 149, 237)',
     color: 'white',
-    borderRadius: '12px',
-    boxShadow: isHovered 
-      ? '0 8px 24px rgba(100, 149, 237, 0.4)' 
+    borderRadius: '30px',
+    boxShadow: isHovered
+      ? '0 8px 24px rgba(100, 149, 237, 0.4)'
       : '0 2px 8px rgba(0, 0, 0, 0.1)',
     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    width: isHovered ? '200px' : '56px',
+    width: isHovered ? EXPANDED_WIDTH : ICON_ONLY_WIDTH,
     overflow: 'hidden',
     padding: padding,
     gap: gap,
@@ -94,22 +96,30 @@ const StyledListItemText = styled(ListItemText)(({ isHovered }) => ({
   margin: 0,
 }));
 
-const CompactIconCard = ({ 
-  items = menuItems, 
+const CompactIconCard = ({
+  items = menuItems,
   onItemClick = null,
   title = null,
   backgroundColor = 'rgb(100, 149, 237)',
+  onHoverChange,
 }) => {
   const theme = useTheme();
   const [isHovered, setIsHovered] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (onHoverChange) onHoverChange(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (onHoverChange) onHoverChange(false);
+  };
+
   const handleItemClick = (label) => {
     setSelectedItem(label);
-    if (onItemClick) {
-      onItemClick(label);
-    }
-    console.log(`Clicked: ${label}`);
+    if (onItemClick) onItemClick(label);
   };
 
   return (
@@ -121,21 +131,24 @@ const CompactIconCard = ({
             fontWeight: 600,
             color: '#333',
             paddingLeft: '4px',
+            opacity: isHovered ? 1 : 0,
+            transition: 'opacity 0.2s ease',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
           }}
         >
           {title}
         </Box>
       )}
-      
+
       <CardContainer
         isHovered={isHovered}
         itemCount={items.length}
         elevation={isHovered ? 8 : 2}
-        sx={{ backgroundColor: backgroundColor }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        sx={{ backgroundColor:'rgb(41,128,185)' }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
-        {/* Menu Items */}
         <List
           sx={{
             padding: 0,
@@ -153,19 +166,6 @@ const CompactIconCard = ({
                 placement="right"
                 arrow
                 enterDelay={300}
-                sx={{
-                  '& .MuiTooltip-tooltip': {
-                    backgroundColor: 'rgba(0, 0, 0, 0.85)',
-                    color: 'white',
-                    fontSize: '0.75rem',
-                    borderRadius: '6px',
-                    padding: '6px 12px',
-                    fontWeight: 500,
-                  },
-                  '& .MuiTooltip-arrow': {
-                    color: 'rgba(0, 0, 0, 0.85)',
-                  },
-                }}
               >
                 <ListItem disablePadding sx={{ display: 'block' }}>
                   <StyledListItemButton

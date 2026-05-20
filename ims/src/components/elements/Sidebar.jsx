@@ -1,9 +1,7 @@
-import React from 'react'
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -45,8 +43,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
     '& .MuiDrawer-paper': {
-      top: '64px',
-      height: 'calc(100% - 64px)',
+      position: 'relative',
+      top: 0,
+      height: '100%',
+      bgcolor: 'rgb(100,149,237)',
     },
     variants: [
       {
@@ -55,8 +55,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
           ...openedMixin(theme),
           '& .MuiDrawer-paper': {
             ...openedMixin(theme),
-            top: '64px',
-            height: 'calc(100% - 64px)',
+            position: 'relative',
+            top: 0,
+            height: '100%',
           },
         },
       },
@@ -66,8 +67,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
           ...closedMixin(theme),
           '& .MuiDrawer-paper': {
             ...closedMixin(theme),
-            top: '64px',
-            height: 'calc(100% - 64px)',
+            position: 'relative',
+            top: 0,
+            height: '100%',
           },
         },
       },
@@ -75,30 +77,53 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const Sidebar = ({ open, onClose }) => {
+const menuItems = [
+  { text: 'Transport', icon: <InboxIcon />, path: '/transport' },
+  { text: 'Shipment', icon: <MailIcon />, path: '/shipment' },
+  { text: 'Staff', icon: <InboxIcon />, path: '/staff' },
+  { text: 'Vendors', icon: <MailIcon />, path: '/vendors' },
+];
+
+const Sidebar = ({ open, onToggle, onNavigate }) => {
   const theme = useTheme();
 
   return (
-    <Box sx={{ display: 'flex',  bgcolor: 'rgb(100,149,237)' }}>
+    <Box sx={{ display: 'flex', height: '100%', bgcolor: 'rgb(100,149,237)' }}>
       <CssBaseline />
       <Drawer variant="permanent" open={open}>
-        <div className="flex items-center justify-end px-2 py-1 bg[rgb(100,149,237)]">
-          <IconButton onClick={onClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: open ? 'flex-end' : 'center',
+            px: 1,
+            py: 1,
+            bgcolor: 'rgb(100,149,237)',
+          }}
+        >
+          <IconButton onClick={onToggle} sx={{ color: 'white' }}>
+            {theme.direction === 'rtl' ? (
+              open ? <ChevronRightIcon /> : <ChevronLeftIcon />
+            ) : (
+              open ? <ChevronLeftIcon /> : <ChevronRightIcon />
+            )}
           </IconButton>
-        </div>
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block', bgcolor: 'rgb(100,149,237)' }}>
+        </Box>
+        <List sx={{ bgcolor: 'rgb(100,149,237)', height: '100%' }}>
+          {menuItems.map((item) => (
+            <ListItem key={item.text} disablePadding sx={{ display: 'block', bgcolor: 'rgb(100,149,237)' }}>
               <ListItemButton
+                onClick={() => onNavigate(item.path)}
                 sx={[
                   {
                     minHeight: 48,
                     px: 2.5,
+                    color: 'white',
+                    '&:hover': { bgcolor: 'rgba(255,255,255,0.15)' },
                   },
                   open
                     ? { justifyContent: 'initial' }
-                    : { justifyContent: 'center' },
+                    : { justifyContent: 'center', px: 2 },
                 ]}
               >
                 <ListItemIcon
@@ -106,15 +131,16 @@ const Sidebar = ({ open, onClose }) => {
                     {
                       minWidth: 0,
                       justifyContent: 'center',
+                      color: 'white',
                     },
                     open ? { mr: 3 } : { mr: 'auto' },
                   ]}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {item.icon}
                 </ListItemIcon>
                 <ListItemText
-                  primary={text}
-                  sx={[open ? { opacity: 1 } : { opacity: 0 }]}
+                  primary={item.text}
+                  sx={[open ? { opacity: 1, color: 'white' } : { opacity: 0 }]}
                 />
               </ListItemButton>
             </ListItem>
