@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import {
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
-  ListItemText,
   Paper,
   Tooltip,
   Box,
+  Typography,
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import BarChartIcon from '@mui/icons-material/BarChart';
@@ -23,7 +23,7 @@ const menuItems = [
   { label: 'Employee By', icon: GroupIcon}
 ];
 
-const ICON_ONLY_WIDTH = 56;
+const ICON_ONLY_WIDTH = 60;
 const EXPANDED_WIDTH = 200;
 
 const CardContainer = styled(Paper)(({ theme, isHovered, itemCount }) => {
@@ -37,7 +37,7 @@ const CardContainer = styled(Paper)(({ theme, isHovered, itemCount }) => {
     flexDirection: 'column',
     height: 'auto',
     minHeight: totalHeight,
-    backgroundColor: 'rgb(100, 149, 237)',
+    backgroundColor: theme.palette.primary.main,
     color: 'white',
     borderRadius: '30px',
     boxShadow: isHovered
@@ -84,15 +84,13 @@ const StyledListItemIcon = styled(ListItemIcon)(({ theme, isHovered }) => ({
   },
 }));
 
-const StyledListItemText = styled(ListItemText)(({ isHovered }) => ({
+const StyledItemLabel = styled(Typography)(({ isHovered }) => ({
   opacity: isHovered ? 1 : 0,
   visibility: isHovered ? 'visible' : 'hidden',
   transition: 'opacity 0.2s ease-in-out, visibility 0.2s ease-in-out',
-  '& .MuiListItemText-primary': {
-    fontSize: '0.875rem',
-    fontWeight: 500,
-    whiteSpace: 'nowrap',
-  },
+  fontSize: '0.875rem',
+  fontWeight: 500,
+  whiteSpace: 'nowrap',
   margin: 0,
 }));
 
@@ -102,6 +100,7 @@ const CompactIconCard = ({
   title = null,
   backgroundColor = 'rgb(100, 149, 237)',
   onHoverChange,
+  selectedLabel = null,
 }) => {
   const theme = useTheme();
   const [isHovered, setIsHovered] = useState(false);
@@ -122,12 +121,14 @@ const CompactIconCard = ({
     if (onItemClick) onItemClick(label);
   };
 
+  const activeItem = selectedLabel ?? selectedItem;
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
       {title && (
-        <Box
+        <Typography
+          variant="subtitle2"
           sx={{
-            fontSize: '0.875rem',
             fontWeight: 600,
             color: '#333',
             paddingLeft: '4px',
@@ -138,14 +139,14 @@ const CompactIconCard = ({
           }}
         >
           {title}
-        </Box>
+        </Typography>
       )}
 
       <CardContainer
         isHovered={isHovered}
         itemCount={items.length}
         elevation={isHovered ? 8 : 2}
-        sx={{ backgroundColor:'rgb(41,128,185)' }}
+        sx={{ backgroundColor }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -158,7 +159,8 @@ const CompactIconCard = ({
           }}
         >
           {items.map((item) => {
-            const IconComponent = item.icon;
+            const fallbackItem = menuItems.find((menuItem) => menuItem.label === item.label);
+            const IconComponent = item.icon || fallbackItem?.icon;
             return (
               <Tooltip
                 key={item.label}
@@ -170,16 +172,29 @@ const CompactIconCard = ({
                 <ListItem disablePadding sx={{ display: 'block' }}>
                   <StyledListItemButton
                     isHovered={isHovered}
-                    selected={selectedItem === item.label}
+                    selected={activeItem === item.label}
                     onClick={() => handleItemClick(item.label)}
                   >
-                    <StyledListItemIcon isHovered={isHovered}>
-                      <IconComponent />
-                    </StyledListItemIcon>
-                    <StyledListItemText
-                      primary={item.label}
-                      isHovered={isHovered}
-                    />
+                    {IconComponent && (
+                      <StyledListItemIcon isHovered={isHovered}>
+                        <IconComponent />
+                      </StyledListItemIcon>
+                    )}
+                    <StyledItemLabel isHovered={isHovered}>
+                      {item.label}
+                    </StyledItemLabel>
+                    {isHovered && item.count !== undefined && (
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          ml: 'auto',
+                          color: 'rgba(255,255,255,0.85)',
+                          fontWeight: 700,
+                        }}
+                      >
+                        {item.count}
+                      </Typography>
+                    )}
                   </StyledListItemButton>
                 </ListItem>
               </Tooltip>

@@ -5,9 +5,8 @@ import Header from './components/elements/Header';
 import { Box, Paper } from '@mui/material';
 import Sidebar from './components/elements/Sidebar';
 import SwitcherTab from './components/elements/SwitcherTab';
-import CompactIconCard from './components/elements/CompactIconCard';
 
-// ========== IMPORT YOUR PAGE COMPONENTS ==========
+// ========== IMPORT ALL PAGE COMPONENTS ==========
 import Dashboard from './components/pages/Dashboard';
 import ShipmentReport from './components/pages/ShipmentReport';
 import OrderManagement from './components/pages/OrderManagement';
@@ -21,12 +20,9 @@ import Vendor from './components/pages/Vendor';
 
 const DRAWER_WIDTH_OPEN = 240;
 const DRAWER_WIDTH_CLOSED = 60;
-const NAVBAR_HEIGHT = 48;
-const TABS_HEIGHT = 50;
-const COLLAPSE_ICON_WIDTH = 50;
-const COLLAPSE_EXPANDED_WIDTH = 200;
+const NAVBAR_HEIGHT = 60;
 
-// Route configuration
+// Route configuration - ALL ROUTES IN ONE PLACE
 const ROUTES = {
   dashboard: '/',
   shipmentReport: '/shipment-report',
@@ -38,16 +34,20 @@ const ROUTES = {
   shipment: '/shipment',
   staff: '/staff',
   vendors: '/vendors',
+  // Records routes (used by CompactIconCard in Settings)
+  addStatus: '/add-status',
+  addType: '/add-type',
+  addVendor: '/add-vendor',
+  addSentBy: '/add-sent-by',
+  employeeBy: '/employee-by',
 };
 
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [menuExpanded, setMenuExpanded] = useState(false);
 
   const drawerWidth = sidebarOpen ? DRAWER_WIDTH_OPEN : DRAWER_WIDTH_CLOSED;
-  const col1Width = menuExpanded ? COLLAPSE_EXPANDED_WIDTH : COLLAPSE_ICON_WIDTH;
 
   const getActiveTabFromPath = () => {
     const path = location.pathname;
@@ -55,7 +55,14 @@ function App() {
     if (path === ROUTES.orderManagement) return 2;
     if (path === ROUTES.transportReport) return 3;
     if (path === ROUTES.addProduct) return 4;
-    if (path === ROUTES.settings) return 5;
+    if (
+      path === ROUTES.settings ||
+      path === ROUTES.addStatus ||
+      path === ROUTES.addType ||
+      path === ROUTES.addVendor ||
+      path === ROUTES.addSentBy ||
+      path === ROUTES.employeeBy
+    ) return 5;
     return 0;
   };
 
@@ -77,27 +84,6 @@ function App() {
     navigate(path);
   };
 
-  const handleCompactIconClick = (label) => {
-    console.log(`Action: ${label}`);
-    // Example: navigate based on label
-    switch (label) {
-      case 'Add Status':
-        navigate('/add-status');
-        break;
-      case 'Add Type':
-        navigate('/add-type');
-        break;
-      case 'Add Vendor':
-        navigate('/add-vendor');
-        break;
-      case 'Add Sent By':
-        navigate('/add-sent-by');
-        break;
-      default:
-        break;
-    }
-  };
-
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh' }}>
       {/* ==================== FIXED NAVBAR ==================== */}
@@ -112,8 +98,8 @@ function App() {
           zIndex: 1300,
         }}
       >
-        <Header 
-          onMenuToggle={() => setSidebarOpen(!sidebarOpen)} 
+        <Header
+          onMenuToggle={() => setSidebarOpen(!sidebarOpen)}
           sidebarOpen={sidebarOpen}
           onLogoClick={() => navigate(ROUTES.dashboard)}
         />
@@ -148,7 +134,6 @@ function App() {
           ml: `${drawerWidth}px`,
           mt: `${NAVBAR_HEIGHT}px`,
           p: 0,
-          paddingTop: 0,
           minHeight: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
           transition: 'margin-left 0.3s ease',
           bgcolor: 'background.default',
@@ -156,70 +141,45 @@ function App() {
       >
         {/* ==================== FIXED TABS ==================== */}
         <Paper
-          elevation={1}
+          elevation={2}
           sx={{
             position: 'sticky',
             top: 0,
             zIndex: 1000,
-            mb: 0,
             width: '100%',
           }}
         >
           <SwitcherTab activeTab={activeTab} onTabChange={handleTabChange} />
         </Paper>
 
-        {/* ==================== TWO COLUMNS ==================== */}
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: { xs: 'column', lg: 'row' },
-            gap: 2,
-          }}
-        >
-          {/* ===== COLUMN 1: HOVER-EXPANDABLE MENU ===== */}
-          <Box
-            sx={{
-              width: { xs: '100%', lg: col1Width },
-              flexShrink: 0,
-              transition: 'width 0.2s ease',
-              overflow: 'hidden',
-              paddingInlineStart: 1,
-            }}
-          >
-            <Paper
-              sx={{
-                paddingInlineStart: 0,
-                position: { lg: 'sticky' },
-                top: `${TABS_HEIGHT + 0}px`,
-                maxHeight: { lg: `calc(100vh - ${NAVBAR_HEIGHT + TABS_HEIGHT + 48}px)` },
-                overflowY: 'auto',
-                overflowX: 'auto',
-              }}
-            >
-              <CompactIconCard
-                onHoverChange={(expanded) => setMenuExpanded(expanded)}
-                onItemClick={handleCompactIconClick}
-              />
-            </Paper>
-          </Box>
+        {/* ==================== CONTENT AREA ==================== */}
+        <Box sx={{ p: 0 }}>
+          {/* ========== ALL ROUTES DECLARED HERE ========== */}
+          <Routes>
+            {/* Main Tab Routes */}
+            <Route path={ROUTES.dashboard} element={<Dashboard />} />
+            <Route path={ROUTES.shipmentReport} element={<ShipmentReport />} />
+            <Route path={ROUTES.orderManagement} element={<OrderManagement />} />
+            <Route path={ROUTES.transportReport} element={<TransportReport />} />
+            <Route path={ROUTES.addProduct} element={<AddProduct />} />
+            <Route path={ROUTES.settings} element={<Settings />} />
 
-          {/* ===== COLUMN 2: CONTENT ===== */}
-          <Box sx={{ flexGrow: 1, minWidth: 0, paddingBlockEnd: 2, p: 3 }}>
-            {/* ========== ROUTES WITH REAL COMPONENTS ========== */}
-            <Routes>
-              <Route path={ROUTES.dashboard} element={<Dashboard />} />
-              <Route path={ROUTES.shipmentReport} element={<ShipmentReport />} />
-              <Route path={ROUTES.orderManagement} element={<OrderManagement />} />
-              <Route path={ROUTES.transportReport} element={<TransportReport />} />
-              <Route path={ROUTES.addProduct} element={<AddProduct />} />
-              <Route path={ROUTES.settings} element={<Settings />} />
-              <Route path={ROUTES.transport} element={<Transport />} />
-              <Route path={ROUTES.shipment} element={<Shipment />} />
-              <Route path={ROUTES.staff} element={<Staff />} />
-              <Route path={ROUTES.vendors} element={<Vendor />} />
-              <Route path="*" element={<Dashboard />} />
-            </Routes>
-          </Box>
+            {/* Sidebar Routes */}
+            <Route path={ROUTES.transport} element={<Transport />} />
+            <Route path={ROUTES.shipment} element={<Shipment />} />
+            <Route path={ROUTES.staff} element={<Staff />} />
+            <Route path={ROUTES.vendors} element={<Vendor />} />
+
+            {/* Settings record routes */}
+            <Route path={ROUTES.addStatus} element={<Settings />} />
+            <Route path={ROUTES.addType} element={<Settings />} />
+            <Route path={ROUTES.addVendor} element={<Settings />} />
+            <Route path={ROUTES.addSentBy} element={<Settings />} />
+            <Route path={ROUTES.employeeBy} element={<Settings />} />
+
+            {/* Fallback */}
+            <Route path="*" element={<Dashboard />} />
+          </Routes>
         </Box>
       </Box>
     </Box>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import Reccords from '../elements/Reccords'; // Reuse your table
 

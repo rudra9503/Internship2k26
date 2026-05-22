@@ -1,0 +1,42 @@
+export const SAMPLE_DATA = {
+  employeeBy: [
+    { id: 1, first_name: 'John', last_name: 'Doe', email: 'john.doe@example.com', department: 'Engineering', status: 'Active', created_at: '2024-01-15' },
+    { id: 2, first_name: 'Sarah', last_name: 'Smith', email: 'sarah.smith@example.com', department: 'Marketing', status: 'Active', created_at: '2024-02-20' },
+    { id: 3, first_name: 'Michael', last_name: 'Johnson', email: 'michael.j@example.com', department: 'Sales', status: 'On Leave', created_at: '2023-11-08' },
+    { id: 4, first_name: 'Emily', last_name: 'Williams', email: 'emily.w@example.com', department: 'HR', status: 'Active', created_at: '2024-03-01' },
+    { id: 5, first_name: 'David', last_name: 'Brown', email: 'david.brown@example.com', department: 'Engineering', status: 'Inactive', created_at: '2023-09-12' },
+    { id: 6, first_name: 'Jessica', last_name: 'Davis', email: 'jessica.d@example.com', department: 'Finance', status: 'Active', created_at: '2024-01-28' },
+    { id: 7, first_name: 'Robert', last_name: 'Miller', email: 'robert.m@example.com', department: 'Operations', status: 'Active', created_at: '2023-12-05' },
+    { id: 8, first_name: 'Amanda', last_name: 'Wilson', email: 'amanda.w@example.com', department: 'Marketing', status: 'On Leave', created_at: '2024-02-14' },
+    { id: 9, first_name: 'James', last_name: 'Taylor', email: 'james.t@example.com', department: 'Engineering', status: 'Active', created_at: '2024-03-10' },
+    { id: 10, first_name: 'Lisa', last_name: 'Anderson', email: 'lisa.a@example.com', department: 'Sales', status: 'Active', created_at: '2023-10-22' },
+  ],
+  status: [
+    { id: 1, name: 'Active', description: 'Currently employed and working', color: 'success', count: 45 },
+    { id: 2, name: 'Inactive', description: 'No longer with the company', color: 'error', count: 12 },
+    { id: 3, name: 'On Leave', description: 'Temporary leave of absence', color: 'warning', count: 8 },
+    { id: 4, name: 'Probation', description: 'Under probationary period', color: 'info', count: 5 },
+    { id: 5, name: 'Suspended', description: 'Suspended pending review', color: 'default', count: 2 },
+  ],
+  type: [
+    { id: 1, name: 'Full-Time', description: 'Permanent full-time employee', category: 'Employment Type', count: 38 },
+    { id: 2, name: 'Part-Time', description: 'Permanent part-time employee', category: 'Employment Type', count: 15 },
+    { id: 3, name: 'Contract', description: 'Fixed-term contract worker', category: 'Employment Type', count: 10 },
+    { id: 4, name: 'Intern', description: 'Internship position', category: 'Employment Type', count: 6 },
+    { id: 5, name: 'Consultant', description: 'External consultant', category: 'Employment Type', count: 3 },
+  ],
+  vendor: [
+    { id: 1, name: 'TechCorp Solutions', contact: 'Alice Chen', email: 'alice@techcorp.com', phone: '+1-555-0101', category: 'Software', status: 'Active' },
+    { id: 2, name: 'Global Logistics Inc', contact: 'Bob Martinez', email: 'bob@globallog.com', phone: '+1-555-0102', category: 'Logistics', status: 'Active' },
+    { id: 3, name: 'Prime Office Supplies', contact: 'Carol White', email: 'carol@primeoffice.com', phone: '+1-555-0103', category: 'Office', status: 'Inactive' },
+    { id: 4, name: 'SecureNet Services', contact: 'Dan Park', email: 'dan@securenet.com', phone: '+1-555-0104', category: 'Security', status: 'Active' },
+    { id: 5, name: 'CloudFirst Hosting', contact: 'Eva Rodriguez', email: 'eva@cloudfirst.com', phone: '+1-555-0105', category: 'Infrastructure', status: 'Active' },
+  ],
+  sentBy: [
+    { id: 1, first_name: 'Manager', last_name: 'Portal', email: 'manager@company.com', role: 'System', department: 'HR' },
+    { id: 2, first_name: 'Admin', last_name: 'Panel', email: 'admin@company.com', role: 'System', department: 'IT' },
+    { id: 3, first_name: 'HR', last_name: 'Department', email: 'hr@company.com', role: 'Department', department: 'HR' },
+    { id: 4, first_name: 'Finance', last_name: 'Team', email: 'finance@company.com', role: 'Department', department: 'Finance' },
+    { id: 5, first_name: 'Operations', last_name: 'Center', email: 'ops@company.com', role: 'Department', department: 'Operations' },
+  ],
+}
