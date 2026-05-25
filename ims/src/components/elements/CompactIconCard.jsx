@@ -23,20 +23,19 @@ const menuItems = [
   { label: 'Employee By', icon: GroupIcon}
 ];
 
-const ICON_ONLY_WIDTH = 60;
+const ICON_ONLY_WIDTH = 50;
 const EXPANDED_WIDTH = 200;
 
-const CardContainer = styled(Paper)(({ theme, isHovered, itemCount }) => {
+const CardContainer = styled(Paper)(({ theme, isHovered,  }) => {
   const itemHeight = 48;
   const padding = theme.spacing(1);
   const gap = theme.spacing(0.5);
-  const totalHeight = itemCount * itemHeight + (itemCount - 1) * 4 + 16;
 
   return {
     display: 'flex',
     flexDirection: 'column',
     height: 'auto',
-    minHeight: totalHeight,
+   // minHeight: totalHeight,
     backgroundColor: theme.palette.primary.main,
     color: 'white',
     borderRadius: '30px',
@@ -98,7 +97,7 @@ const CompactIconCard = ({
   items = menuItems,
   onItemClick = null,
   title = null,
-  backgroundColor = 'rgb(100, 149, 237)',
+  backgroundColor = 'rgb(41,128,185)',
   onHoverChange,
   selectedLabel = null,
 }) => {
@@ -144,7 +143,6 @@ const CompactIconCard = ({
 
       <CardContainer
         isHovered={isHovered}
-        itemCount={items.length}
         elevation={isHovered ? 8 : 2}
         sx={{ backgroundColor }}
         onMouseEnter={handleMouseEnter}
@@ -169,11 +167,13 @@ const CompactIconCard = ({
                 arrow
                 enterDelay={300}
               >
-                <ListItem disablePadding sx={{ display: 'block' }}>
+                <ListItem disablePadding sx={{ display: 'block', }}>
                   <StyledListItemButton
                     isHovered={isHovered}
                     selected={activeItem === item.label}
-                    onClick={() => handleItemClick(item.label)}
+                    onClick={() => handleItemClick(item.label)
+                    
+                    }
                   >
                     {IconComponent && (
                       <StyledListItemIcon isHovered={isHovered}>
@@ -192,7 +192,6 @@ const CompactIconCard = ({
                           fontWeight: 700,
                         }}
                       >
-                        {item.count}
                       </Typography>
                     )}
                   </StyledListItemButton>

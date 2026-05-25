@@ -18,7 +18,8 @@ import {
   MenuItem,
   Chip,
   Avatar,
-  Stack
+  Stack,
+  Grow
 } from '@mui/material'
 import { useLocation } from 'react-router-dom'
 import EditIcon from '@mui/icons-material/Edit'
@@ -46,11 +47,11 @@ const TABLE_CONFIG = {
     title: 'Employee',
     columns: [
       { key: 'sno', label: 'S.No.', align: 'center', width: '8%' },
-      { key: 'name', label: 'Employee Name', align: 'left', width: '22%' },
+      //{ key: 'name', label: 'Employee Name', align: 'left', width: '22%' },
       { key: 'email', label: 'Email', align: 'left', width: '25%' },
-      { key: 'department', label: 'Department', align: 'center', width: '15%' },
-      { key: 'status', label: 'Status', align: 'center', width: '12%' },
-      { key: 'created_at', label: 'Joined Date', align: 'center', width: '18%' },
+     // { key: 'department', label: 'Department', align: 'center', width: '15%' },
+    //  { key: 'status', label: 'Status', align: 'center', width: '12%' },
+     // { key: 'created_at', label: 'Joined Date', align: 'center', width: '18%' },
     ],
     renderCell: (row, colKey) => {
       switch (colKey) {
@@ -58,8 +59,8 @@ const TABLE_CONFIG = {
           return row._index + 1
         case 'name':
           return (
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-              <Avatar sx={{ width: 32, height: 32, bgcolor: '#1976d2', fontSize: '0.85rem' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Avatar sx={{ width: 32, height: 32, bgcolor: '#1976d2', fontSize: '0.70rem' }}>
                 {(row.first_name?.[0] ?? '?')}{(row.last_name?.[0] ?? '')}
               </Avatar>
               <Typography sx={{ fontWeight: 500 }}>
@@ -86,7 +87,7 @@ const TABLE_CONFIG = {
                 border: `1px solid ${sc.border}`,
                 fontWeight: 600,
                 fontSize: '0.75rem',
-                height: 24,
+                height: 20,
               }}
             />
           )
@@ -260,7 +261,7 @@ const Records = ({
   const [formData, setFormData] = useState({})
 
   const type = useMemo(() => {
-    return recordType || PATH_TYPE_MAP[location.pathname] || 'employeeBy'
+    return recordType || PATH_TYPE_MAP[location.pathname] || 'Add Status'
   }, [location.pathname, recordType])
 
   const config = TABLE_CONFIG[type] || TABLE_CONFIG.employeeBy
@@ -342,7 +343,7 @@ const Records = ({
   const endItem = Math.min(currentPage * rowsPerPage, filteredData.length)
 
   return (
-    <Box sx={{ p: { xs: 2, md: 3 }, backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
+    <Box sx={{ p: { xs: 2, md: 3 }, backgroundColor: '#f5f5f5', maxHeight: 'auto' }}>
       {/* Top Controls */}
       <Box
         sx={{
@@ -351,6 +352,7 @@ const Records = ({
           alignItems: 'center',
           gap: 2,
           mb: 3,
+          height:'auto'
         }}
       >
         <TextField
@@ -454,7 +456,7 @@ const Records = ({
           overflow: 'hidden',
         }}
       >
-        <Table aria-label={`${config.title.toLowerCase()} table`} sx={{ minWidth: 500 }}>
+        <Table aria-label={`${config.title.toLowerCase()} table`} sx={{ minWidth: 400 }}>
           <TableHead>
             <TableRow sx={{ backgroundColor: '#e8e8e8' }}>
               {config.columns.map((col) => (
@@ -465,7 +467,7 @@ const Records = ({
                     fontWeight: 700,
                     color: '#333',
                     fontSize: '0.9rem',
-                    py: 1.5,
+                    py: 1,
                     borderBottom: '2px solid #ddd',
                     width: col.width,
                     whiteSpace: 'nowrap',

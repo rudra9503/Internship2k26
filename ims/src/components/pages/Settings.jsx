@@ -113,6 +113,7 @@ const Settings = () => {
           flexDirection: { xs: 'column', lg: 'row' },
           gap: 2,
           alignItems: 'flex-start',
+          
         }}
       >
         <Box
@@ -124,7 +125,7 @@ const Settings = () => {
           }}
         >
           <Paper
-            elevation={0}
+            elevation={4}
             sx={{
               position: { lg: 'sticky' },
               top: `${TABS_HEIGHT}px`,
@@ -132,6 +133,8 @@ const Settings = () => {
               overflowY: 'auto',
               overflowX: 'hidden',
               bgcolor: 'transparent',
+              placeItems:'start',
+             
             }}
           >
             <CompactIconCard
@@ -144,7 +147,7 @@ const Settings = () => {
           </Paper>
         </Box>
 
-        <Box sx={{ flexGrow: 1, minWidth: 0 }}>
+        <Box sx={{ flexGrow: 1, minWidth: 0,}}>
           <Reccords
             recordType={currentType}
             records={currentRecords}

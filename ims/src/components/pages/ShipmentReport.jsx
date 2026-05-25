@@ -8,8 +8,7 @@ const ShipmentReport = () => {
       <Typography variant="h4" sx={{ mb: 3, fontWeight: 600 }}>
         Shipment Report
       </Typography>
-      <Button>Add</Button>
-      <Reccords /> {/* Your existing table component */}
+     
     </Box>
   );
 };
