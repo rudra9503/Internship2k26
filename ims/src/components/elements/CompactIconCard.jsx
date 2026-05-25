@@ -135,7 +135,7 @@ const CompactIconCard = ({
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-      {title && (
+      {/* {title && (
         <Typography
           variant="subtitle2"
           sx={{
@@ -150,7 +150,7 @@ const CompactIconCard = ({
         >
           {title}
         </Typography>
-      )}
+      )} */}
 
       <CardContainer
         isHovered={isHovered}

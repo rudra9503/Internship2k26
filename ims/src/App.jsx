@@ -145,7 +145,7 @@ function App() {
           sx={{
             position: 'sticky',
             top: 0,
-            zIndex: 1000,
+            zIndex: 500,
             width: '100%',
           }}
         >

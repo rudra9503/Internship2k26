@@ -15,12 +15,12 @@ const SwitcherTab = ({ activeTab, onTabChange }) => {
       sx={{
         display: 'flex',
         justifyContent: 'center',
-        gap: 1,
+        gap: 6,
         flexWrap: 'wrap',
         bgcolor: 'rgb(41,128,185)',
         borderRadius: 30,
         p: '8px 16px',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+        //boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
       }}
     >
       {tabs.map((label, index) => (
