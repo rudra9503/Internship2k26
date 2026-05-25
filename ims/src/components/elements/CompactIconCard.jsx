@@ -83,10 +83,21 @@ const StyledListItemIcon = styled(ListItemIcon)(({ theme, isHovered }) => ({
   },
 }));
 
+// const StyledItemLabel = styled(Typography)(({ isHovered }) => ({
+//   opacity: isHovered ? 1 : 0,
+//   visibility: isHovered ? 'visible' : 'hidden',
+//   transition: 'opacity 0.2s ease-in-out, visibility 0.2s ease-in-out',
+//   fontSize: '0.875rem',
+//   fontWeight: 500,
+//   whiteSpace: 'nowrap',
+//   margin: 0,
+// }));
+
 const StyledItemLabel = styled(Typography)(({ isHovered }) => ({
   opacity: isHovered ? 1 : 0,
-  visibility: isHovered ? 'visible' : 'hidden',
-  transition: 'opacity 0.2s ease-in-out, visibility 0.2s ease-in-out',
+  maxWidth: isHovered ? 150 : 0,   // 0 width when collapsed
+  overflow: 'hidden',               // hide the text overflow
+  transition: 'opacity 0.2s ease-in-out, max-width 0.2s ease-in-out',
   fontSize: '0.875rem',
   fontWeight: 500,
   whiteSpace: 'nowrap',
@@ -151,9 +162,9 @@ const CompactIconCard = ({
         <List
           sx={{
             padding: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: theme.spacing(0.5),
+           // display: 'flex',
+            //flexDirection: 'column',
+           // gap: theme.spacing(0.5),
           }}
         >
           {items.map((item) => {
@@ -163,11 +174,11 @@ const CompactIconCard = ({
               <Tooltip
                 key={item.label}
                 title={!isHovered ? item.label : ''}
-                placement="right"
+                //placement="right"
                 arrow
                 enterDelay={300}
               >
-                <ListItem disablePadding sx={{ display: 'block', }}>
+                <ListItem  disablePadding sx={{ display: 'block', mb: 0.5 }}>
                   <StyledListItemButton
                     isHovered={isHovered}
                     selected={activeItem === item.label}

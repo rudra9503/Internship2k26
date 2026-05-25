@@ -98,21 +98,22 @@ const Settings = () => {
 
   return (
     <Box sx={{ p: { xs: 2, md: 3 } }}>
-      <Box sx={{ mb: 2 }}>
+      {/* <Box sx={{ mb: 2 }}>
         <Typography variant="h4" sx={{ fontWeight: 700, color: '#263238' }}>
           Settings
         </Typography>
         <Typography variant="subtitle1" sx={{ color: 'text.secondary', mt: 0.5 }}>
           {pageName}
         </Typography>
-      </Box>
+      </Box> */}
 
       <Box
         sx={{
-          display: 'flex',
+          display:'flex',
           flexDirection: { xs: 'column', lg: 'row' },
           gap: 2,
           alignItems: 'flex-start',
+          
           
         }}
       >
@@ -122,6 +123,7 @@ const Settings = () => {
             flexShrink: 0,
             transition: 'width 0.2s ease',
             overflow: 'hidden',
+            
           }}
         >
           <Paper
@@ -134,6 +136,7 @@ const Settings = () => {
               overflowX: 'hidden',
               bgcolor: 'transparent',
               placeItems:'start',
+              
              
             }}
           >

@@ -343,7 +343,7 @@ const Records = ({
   const endItem = Math.min(currentPage * rowsPerPage, filteredData.length)
 
   return (
-    <Box sx={{ p: { xs: 2, md: 3 }, backgroundColor: '#f5f5f5', maxHeight: 'auto' }}>
+    <Box sx={{ p: { xs: 2, md: 3 }, backgroundColor: '#f5f5f5', maxHeight: 'auto', borderRadius:3, borderColor:'black'}}>
       {/* Top Controls */}
       <Box
         sx={{
@@ -352,7 +352,8 @@ const Records = ({
           alignItems: 'center',
           gap: 2,
           mb: 3,
-          height:'auto'
+          height:'auto',
+          
         }}
       >
         <TextField
