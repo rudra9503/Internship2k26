@@ -26,6 +26,8 @@ const menuItems = [
 const ICON_ONLY_WIDTH = 50;
 const EXPANDED_WIDTH = 200;
 
+//const IconComponent = item.icon;
+
 const CardContainer = styled(Paper)(({ theme, isHovered,  }) => {
   const itemHeight = 48;
   const padding = theme.spacing(1);
@@ -106,6 +108,7 @@ const StyledItemLabel = styled(Typography)(({ isHovered }) => ({
 
 const CompactIconCard = ({
   items = menuItems,
+  //items, instead of default menu setup
   onItemClick = null,
   title = null,
   backgroundColor = 'rgb(41,128,185)',
@@ -210,6 +213,10 @@ const CompactIconCard = ({
               </Tooltip>
             );
           })}
+          
+
+          
+
         </List>
       </CardContainer>
     </Box>
@@ -217,3 +224,39 @@ const CompactIconCard = ({
 };
 
 export default CompactIconCard;
+
+
+
+
+//api icon fteching method 
+
+// {items.map((item) => {
+//   const IconComponent = item.icon;  // ✅ Clean, no fallback needed
+  
+//   return (
+//     <Tooltip
+//       key={item.label}
+//       title={!isHovered ? item.label : ''}
+//       arrow
+//       enterDelay={300}
+//     >
+//       <ListItem disablePadding sx={{ display: 'block', mb: 0.5 }}>
+//         <StyledListItemButton
+//           isHovered={isHovered}
+//           selected={activeItem === item.label}
+//           onClick={() => handleItemClick(item.label)}
+//         >
+//           {IconComponent && (
+//             <StyledListItemIcon isHovered={isHovered}>
+//               <IconComponent />
+//             </StyledListItemIcon>
+//           )}
+//           <StyledItemLabel isHovered={isHovered}>
+//             {item.label}
+//           </StyledItemLabel>
+//           {/* ... count badge ... */}
+//         </StyledListItemButton>
+//       </ListItem>
+//     </Tooltip>
+//   );
+// })}
