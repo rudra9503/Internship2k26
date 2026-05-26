@@ -244,6 +244,34 @@ const getEmptyFormState = (type) => {
   }, {})
 }
 
+//API  based
+
+// const getEmptyFormState = (fields) => {  // ✅ Changed from (type)
+//   return (fields || []).reduce((form, field) => {
+//     form[field.key] = ''
+//     return form
+//   }, {})
+// }
+
+
+//   const resetForm = () => {
+//     setFormData(getEmptyFormState(fields))  // ✅ Pass fields, not type
+//     setEditingId(null)
+//     setFormOpen(false)
+//   }
+
+//   const handleAdd = () => {
+//     setFormData(getEmptyFormState(fields))  // ✅ Pass fields, not type
+//     setEditingId(null)
+//     setFormOpen(true)
+//   }
+
+  // ✅ DYNAMIC CONFIG: external overrides internal
+  //const config = externalTableConfig || TABLE_CONFIG[type] || TABLE_CONFIG.employeeBy
+  //const fields = externalFormFields || FORM_FIELDS[type] || FORM_FIELDS.employeeBy
+
+
+
 // ── Main Component ─────────────────────────────────────────────────
 const Records = ({
   recordType,
@@ -251,6 +279,8 @@ const Records = ({
   onCreate,
   onUpdate,
   onDelete,
+  tableConfig: externalTableConfig,      // ✅ NEW
+  formFields: externalFormFields,       // ✅ NEW
 }) => {
   const location = useLocation()
   const [searchQuery, setSearchQuery] = useState('')
@@ -618,3 +648,5 @@ const Records = ({
 }
 
 export default Records
+
+

@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Reccords from '../elements/Reccords';
 import CompactIconCard from '../elements/CompactIconCard';
 import { SAMPLE_DATA } from '../settings/recordsData';
+import Reccords2 from '../elements/Reccords2'
 
 const COLLAPSE_ICON_WIDTH = 60;
 const COLLAPSE_EXPANDED_WIDTH = 200;
@@ -158,6 +159,7 @@ const Settings = () => {
             onUpdate={updateRecord}
             onDelete={deleteRecord}
           />
+         
         </Box>
       </Box>
     </Box>
